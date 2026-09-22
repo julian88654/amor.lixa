@@ -1,0 +1,754 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html,
+body {
+    width: 100%;
+    height: 100%;
+}
+
+body {
+    font-family: "Poppins", sans-serif;
+    overflow: hidden;
+}
+
+/* =========================
+   FONDO
+========================= */
+
+.fondo {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+
+    background:
+        radial-gradient(circle at 50% 20%, #fff9c4 0%, transparent 30%),
+        linear-gradient(
+            180deg,
+            #fffbe6 0%,
+            #fff4b8 45%,
+            #f8dc63 100%
+        );
+
+    transition:
+        background 1s ease,
+        filter 1s ease;
+}
+
+/* Modo noche */
+
+.fondo.noche {
+    background:
+        radial-gradient(circle at 50% 20%, #4b4370 0%, transparent 25%),
+        linear-gradient(
+            180deg,
+            #090d25 0%,
+            #141b42 50%,
+            #202653 100%
+        );
+}
+
+/* =========================
+   ESTRELLAS
+========================= */
+
+.estrellas {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+}
+
+.estrella {
+    position: absolute;
+
+    width: 3px;
+    height: 3px;
+
+    background: white;
+    border-radius: 50%;
+
+    opacity: 0;
+
+    animation:
+        aparecerEstrella 2s ease forwards,
+        brillarEstrella 2s ease-in-out infinite alternate;
+}
+
+@keyframes aparecerEstrella {
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes brillarEstrella {
+    from {
+        transform: scale(0.7);
+        opacity: 0.3;
+    }
+
+    to {
+        transform: scale(1.8);
+        opacity: 1;
+    }
+}
+
+/* =========================
+   TÍTULO
+========================= */
+
+.titulo {
+    position: absolute;
+
+    top: 35px;
+    left: 20px;
+    right: 20px;
+
+    text-align: center;
+
+    z-index: 50;
+
+    transition: 0.5s ease;
+}
+
+.titulo h1 {
+    color: #7b5a00;
+
+    font-size: clamp(30px, 5vw, 55px);
+
+    font-weight: 700;
+
+    text-shadow:
+        0 4px 15px rgba(255, 193, 7, 0.25);
+
+    animation:
+        flotarTitulo 3s ease-in-out infinite;
+}
+
+.titulo p {
+    margin-top: 5px;
+
+    color: #8b6b15;
+
+    font-size: 14px;
+}
+
+.fondo.noche .titulo h1,
+.fondo.noche .titulo p {
+    color: #fff4a8;
+}
+
+@keyframes flotarTitulo {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-8px);
+    }
+}
+
+/* =========================
+   ESCENA
+========================= */
+
+.escena {
+    position: absolute;
+
+    left: 50%;
+    top: 50%;
+
+    transform: translate(-50%, -40%);
+
+    width: 340px;
+    height: 320px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    perspective: 1200px;
+
+    z-index: 20;
+}
+
+/* =========================
+   SOBRE
+========================= */
+
+.sobre {
+    position: relative;
+
+    width: 330px;
+    height: 210px;
+
+    transform-style: preserve-3d;
+
+    filter:
+        drop-shadow(0 20px 25px rgba(93, 70, 0, 0.25));
+
+    transition: transform 0.8s ease;
+
+    overflow: visible;
+}
+
+.sobre:hover {
+    transform: translateY(-8px) rotateZ(-1deg);
+}
+
+/* =========================
+   CUERPO DEL SOBRE
+========================= */
+
+.cuerpo-sobre {
+    position: absolute;
+
+    left: 0;
+    bottom: 0;
+
+    width: 100%;
+    height: 100%;
+
+    background:
+        linear-gradient(
+            135deg,
+            #f9d54b,
+            #f3c32d
+        );
+
+    border-radius: 8px;
+
+    z-index: 10;
+
+    box-shadow:
+        inset 0 0 0 2px rgba(255,255,255,0.25);
+}
+
+/* Triángulos decorativos */
+
+.cuerpo-sobre::before {
+    content: "";
+
+    position: absolute;
+
+    left: 0;
+    bottom: 0;
+
+    width: 0;
+    height: 0;
+
+    border-left: 165px solid transparent;
+    border-right: 0 solid transparent;
+    border-bottom: 105px solid #e9b92a;
+
+    z-index: 11;
+}
+
+.cuerpo-sobre::after {
+    content: "";
+
+    position: absolute;
+
+    right: 0;
+    bottom: 0;
+
+    width: 0;
+    height: 0;
+
+    border-right: 165px solid transparent;
+    border-left: 0 solid transparent;
+    border-bottom: 105px solid #e9b92a;
+
+    z-index: 11;
+}
+
+/* =========================
+   CARTA
+========================= */
+
+.carta {
+    position: absolute;
+
+    left: 18px;
+    right: 18px;
+
+    top: 15px;
+
+    height: 180px;
+
+    padding: 22px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #fffef5,
+            #fff8d9
+        );
+
+    border-radius: 10px;
+
+    box-shadow:
+        0 8px 25px rgba(80, 55, 0, 0.18);
+
+    z-index: 12;
+
+    transform:
+        translateY(0)
+        scale(1);
+
+    transition:
+        transform 1s cubic-bezier(.2,.8,.2,1),
+        height 1s ease,
+        box-shadow 0.5s ease;
+
+    overflow: hidden;
+}
+
+/* Carta abierta */
+
+.sobre.abierto .carta {
+
+    transform:
+        translateY(-190px)
+        scale(1.05);
+
+    height: 300px;
+
+    z-index: 100;
+
+    box-shadow:
+        0 20px 50px rgba(50, 35, 0, 0.3);
+
+    overflow: visible;
+}
+
+/* Contenido carta */
+
+.contenido-carta {
+    position: relative;
+
+    width: 100%;
+    height: 100%;
+
+    text-align: center;
+
+    z-index: 101;
+}
+
+.flor-icono {
+    display: block;
+
+    font-size: 32px;
+
+    margin-bottom: 5px;
+
+    animation:
+        girarFlor 4s linear infinite;
+}
+
+@keyframes girarFlor {
+
+    0% {
+        transform: rotate(-8deg);
+    }
+
+    50% {
+        transform: rotate(8deg);
+    }
+
+    100% {
+        transform: rotate(-8deg);
+    }
+}
+
+.contenido-carta h2 {
+    color: #765600;
+
+    font-size: 22px;
+
+    margin-bottom: 12px;
+}
+
+.contenido-carta p {
+    color: #695c37;
+
+    font-size: 14px;
+
+    line-height: 1.7;
+
+    min-height: 90px;
+}
+
+.firma {
+    margin-top: 15px;
+
+    color: #a47b00;
+
+    font-size: 13px;
+    font-weight: 600;
+}
+
+/* =========================
+   TAPA
+========================= */
+
+.tapa {
+    position: absolute;
+
+    left: 0;
+    top: 0;
+
+    width: 0;
+    height: 0;
+
+    border-left: 165px solid transparent;
+    border-right: 165px solid transparent;
+    border-top: 120px solid #f7cf3d;
+
+    transform-origin: top center;
+
+    transition:
+        transform 1s cubic-bezier(.2,.8,.2,1),
+        z-index 0s linear 0.3s;
+
+    z-index: 30;
+
+    filter:
+        drop-shadow(0 2px 2px rgba(100,70,0,0.12));
+}
+
+/* Tapa abierta */
+
+.sobre.abierto .tapa {
+
+    transform:
+        rotateX(180deg)
+        translateY(-3px);
+
+    z-index: 1;
+
+    pointer-events: none;
+}
+
+/* =========================
+   SELLO
+========================= */
+
+.sello {
+    position: absolute;
+
+    left: 50%;
+    top: 83px;
+
+    transform: translateX(-50%);
+
+    width: 48px;
+    height: 48px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: #fff2a0;
+
+    border-radius: 50%;
+
+    font-size: 24px;
+
+    box-shadow:
+        0 5px 15px rgba(120, 90, 0, 0.25);
+
+    z-index: 40;
+
+    cursor: pointer;
+
+    transition: 0.5s ease;
+}
+
+.sello:hover {
+    transform:
+        translateX(-50%)
+        scale(1.15)
+        rotate(10deg);
+}
+
+.sobre.abierto .sello {
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* =========================
+   BOTONES
+========================= */
+
+.controles {
+    position: absolute;
+
+    left: 50%;
+    bottom: 45px;
+
+    transform: translateX(-50%);
+
+    width: min(95%, 700px);
+
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+
+    gap: 10px;
+
+    z-index: 100;
+}
+
+.controles button {
+
+    border: none;
+
+    padding: 11px 18px;
+
+    border-radius: 30px;
+
+    background:
+        rgba(255,255,255,0.85);
+
+    color: #735600;
+
+    font-family: "Poppins", sans-serif;
+
+    font-weight: 600;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 5px 15px rgba(80,60,0,0.15);
+
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease,
+        background 0.25s ease;
+}
+
+.controles button:hover {
+
+    transform:
+        translateY(-4px)
+        scale(1.03);
+
+    box-shadow:
+        0 10px 25px rgba(80,60,0,0.2);
+
+    background: #fff7bf;
+}
+
+.controles button:active {
+    transform: scale(0.94);
+}
+
+/* =========================
+   FLORES
+========================= */
+
+.flor {
+    position: absolute;
+
+    bottom: -80px;
+
+    font-size: 30px;
+
+    pointer-events: none;
+
+    z-index: 15;
+
+    animation:
+        subirFlor linear forwards;
+}
+
+@keyframes subirFlor {
+
+    0% {
+        transform:
+            translateY(0)
+            rotate(0deg)
+            scale(0.6);
+
+        opacity: 0;
+    }
+
+    10% {
+        opacity: 1;
+    }
+
+    50% {
+        transform:
+            translateY(-50vh)
+            translateX(30px)
+            rotate(180deg)
+            scale(1);
+    }
+
+    100% {
+        transform:
+            translateY(-115vh)
+            translateX(-40px)
+            rotate(360deg)
+            scale(0.7);
+
+        opacity: 0;
+    }
+}
+
+/* =========================
+   CORAZONES
+========================= */
+
+.corazon {
+    position: absolute;
+
+    bottom: -40px;
+
+    font-size: 25px;
+
+    pointer-events: none;
+
+    z-index: 80;
+
+    animation:
+        subirCorazon 4s ease-out forwards;
+}
+
+@keyframes subirCorazon {
+
+    0% {
+        transform:
+            translateY(0)
+            scale(0.5)
+            rotate(0deg);
+
+        opacity: 0;
+    }
+
+    15% {
+        opacity: 1;
+    }
+
+    100% {
+        transform:
+            translateY(-100vh)
+            scale(1.3)
+            rotate(30deg);
+
+        opacity: 0;
+    }
+}
+
+/* =========================
+   PARTÍCULAS
+========================= */
+
+.particula {
+    position: absolute;
+
+    width: 7px;
+    height: 7px;
+
+    border-radius: 50%;
+
+    background: #fff3a0;
+
+    pointer-events: none;
+
+    z-index: 5;
+
+    animation:
+        flotarParticula 4s ease-out forwards;
+}
+
+@keyframes flotarParticula {
+
+    0% {
+        transform: scale(0);
+        opacity: 0;
+    }
+
+    20% {
+        opacity: 1;
+    }
+
+    100% {
+        transform:
+            translateY(-120px)
+            scale(0);
+
+        opacity: 0;
+    }
+}
+
+/* =========================
+   MENSAJE INFERIOR
+========================= */
+
+.mensaje-inferior {
+
+    position: absolute;
+
+    bottom: 12px;
+
+    left: 0;
+    right: 0;
+
+    text-align: center;
+
+    color: rgba(100, 75, 0, 0.65);
+
+    font-size: 11px;
+
+    z-index: 90;
+}
+
+.fondo.noche .mensaje-inferior {
+    color: rgba(255,255,255,0.6);
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 600px) {
+
+    .escena {
+        transform:
+            translate(-50%, -35%)
+            scale(0.82);
+    }
+
+    .titulo {
+        top: 20px;
+    }
+
+    .titulo h1 {
+        font-size: 32px;
+    }
+
+    .titulo p {
+        font-size: 12px;
+    }
+
+    .controles {
+        bottom: 35px;
+        padding: 0 10px;
+    }
+
+    .controles button {
+        padding: 9px 12px;
+        font-size: 11px;
+    }
+
+    .mensaje-inferior {
+        display: none;
+    }
+}
